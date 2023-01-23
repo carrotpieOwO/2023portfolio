@@ -2,10 +2,12 @@ import React, { useEffect, useRef, useState } from 'react';
 import { motion, useScroll, useViewportScroll } from 'framer-motion';
 import styled from 'styled-components';
 import imageModule from './util/imageModule';
-import Header from './components/Header';
-import Menu from './components/Menu';
-import Home from './routes/Home';
-import NotFoundPage from './routes/404';
+import Header from './Components/Header';
+import Menu from './Components/Menu';
+import Home from './Routes/Home';
+import NotFoundPage from './Routes/404';
+import About from './Routes/About';
+// import Work from './Routes/Work';
 import { Routes, Route } from 'react-router-dom';
 
 const MyApp = styled.div`
@@ -13,7 +15,7 @@ const MyApp = styled.div`
   &:active {
     cursor: url(${imageModule.cursors.rabbitCursorClicked}), auto;
   }
-  overflow: hidden;
+  //overflow: hidden;
   height: 100vh;
   position: relative;
 `
@@ -47,8 +49,8 @@ function App() {
         : 
         <Routes>
           <Route path='/' element={<Home isIntro={isIntro}/>} />
-          <Route path='/about' element={<div>about page</div>}/>
-          <Route />
+          <Route path='/about' element={<About/>}/>
+          {/* <Route path='/work' element={<Work/>} /> */}
           <Route />
           <Route path='*' element={<NotFoundPage/>} />
         </Routes>

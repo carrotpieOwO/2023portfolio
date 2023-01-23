@@ -19,10 +19,12 @@ import cat4 from '../img/cat4.png'
 import notFound from '../img/404.png'
 import backSpace from '../img/backspace.png'
 import backSpaceActive from '../img/backspace_active.png'
+import intp from '../img/intp.png'
+
 
 const cursors = { rabbitCursor, rabbitCursorClicked, enterCursor, handCursor, pointerCursor }
 const icons = { homeIcon, menuIcon }
-const images = { keyboardIntro, notFound, backSpace, backSpaceActive }
+const images = { keyboardIntro, notFound, backSpace, backSpaceActive, intp }
 const flyingKeycaps = [ hKey, aKey, yKey, oKey, nKey, gKey ]
 const imageModule = { cursors, icons, images, flyingKeycaps }
 const cats = { cat, cat2, cat3, cat4 }
@@ -32,4 +34,5 @@ export { cats };
 export { cursors };
 export { icons };
 export { images };
+
 export default imageModule;

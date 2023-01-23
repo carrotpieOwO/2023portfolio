@@ -2,10 +2,11 @@ import React, { useEffect, useRef, useState } from 'react';
 import { motion } from 'framer-motion';
 import styled from 'styled-components';
 import imageModule from '../util/imageModule';
-import FlyingKeycaps from '../components/FlyingKeycaps';
+import FlyingKeycaps from '../Components/FlyingKeycaps';
 
 const Container = styled(motion.div)`
   height: 100vh;
+  overflow: hidden;
 `
 const Keyboard = styled(motion.div)`
     width: 80%;

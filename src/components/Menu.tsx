@@ -12,6 +12,7 @@ const MenuContainer = styled(motion.div)`
     justify-content: center;
     align-items: center;
     text-align: center;
+    overflow: hidden;
 `
 const Li = styled(motion.div)`
     list-style-type: none;

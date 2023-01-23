@@ -57,7 +57,7 @@ const btnVariants = {
             type: 'spring',
             duration: .5,
             stiffness: 50, 
-            damping: 10,
+            damping: 5,
             ease: "easeInOut",
         }
     })
