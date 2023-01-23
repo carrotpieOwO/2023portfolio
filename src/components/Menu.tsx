@@ -121,13 +121,13 @@ const navInfo:NavInfo[] = [
         y: [500, 207],
         x: [0, 0]
     },
-    {
-        text: 'BLOG',
-        bgColor: 'rgb(97 96 154)',
-        textColor: 'rgb(244 237 51)',
-        y: [500, 380],
-        x: [100, 0]
-    }
+    // {
+    //     text: 'BLOG',
+    //     bgColor: 'rgb(97 96 154)',
+    //     textColor: 'rgb(244 237 51)',
+    //     y: [500, 380],
+    //     x: [100, 0]
+    // }
 ]
 
 

@@ -76,7 +76,7 @@ const ResumeContainer = styled.div`
 `
 const containerVariants = {
     start: {
-        background: 'rgb(248 193 186)',
+        background: 'rgb(248, 193, 186)',
         boxShadow: '0px 0px 0px 20px rgb(235, 84, 145) inset',
     },
     end: (custom :string) => ({

@@ -20,9 +20,11 @@ import notFound from '../img/404.png'
 import backSpace from '../img/backspace.png'
 import backSpaceActive from '../img/backspace_active.png'
 import intp from '../img/intp.png'
+import dragLeft from '../img/drag_left.png'
+import dragRight from '../img/drag_right.png'
 
 
-const cursors = { rabbitCursor, rabbitCursorClicked, enterCursor, handCursor, pointerCursor }
+const cursors = { rabbitCursor, rabbitCursorClicked, enterCursor, handCursor, pointerCursor, dragLeft, dragRight }
 const icons = { homeIcon, menuIcon }
 const images = { keyboardIntro, notFound, backSpace, backSpaceActive, intp }
 const flyingKeycaps = [ hKey, aKey, yKey, oKey, nKey, gKey ]

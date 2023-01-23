@@ -7,7 +7,7 @@ import Menu from './Components/Menu';
 import Home from './Routes/Home';
 import NotFoundPage from './Routes/404';
 import About from './Routes/About';
-// import Work from './Routes/Work';
+import Work from './Routes/Work';
 import { Routes, Route } from 'react-router-dom';
 
 const MyApp = styled.div`
@@ -50,7 +50,8 @@ function App() {
         <Routes>
           <Route path='/' element={<Home isIntro={isIntro}/>} />
           <Route path='/about' element={<About/>}/>
-          {/* <Route path='/work' element={<Work/>} /> */}
+          <Route path='/work' element={<Work/>} />
+          <Route path='/work/:id' element={<Work/>} />
           <Route />
           <Route path='*' element={<NotFoundPage/>} />
         </Routes>
