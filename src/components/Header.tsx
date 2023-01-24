@@ -52,8 +52,7 @@ const containerVariants = {
   end: {
     y: 0,
     transition: {
-      delay: 1.5,
-      duration: 1.5,
+      duration: .6,
     }
   }
 }
@@ -80,7 +79,7 @@ const menuTitleVariants = {
         opacity: 1,
     }
 }
-function Header(props: {setOpenMenu:(a:boolean)=>void, openMenu:boolean}) {
+function Header(props: {setOpenMenu:(a:boolean)=>void, openMenu:boolean, isIntro:boolean}) {
     const navigate = useNavigate();
     const [ homeHover, setHomeHover ] = useState(false);
     const [ menuHover, setMenuHover ] = useState(false);
@@ -103,7 +102,10 @@ function Header(props: {setOpenMenu:(a:boolean)=>void, openMenu:boolean}) {
     }
 
     return (
-        <Container>
+      <>
+      {
+        !props.isIntro &&
+          <Container>
             <MenuBtnContainer variants={containerVariants} initial='start' animate='end'>
                 <HomeBtn
                     variants={btnVariants} custom={[-2, 2.3, 1]} whileHover='hover' 
@@ -126,7 +128,9 @@ function Header(props: {setOpenMenu:(a:boolean)=>void, openMenu:boolean}) {
                     </MenuTitle>
                 </MenuBtn>
             </MenuBtnContainer>
-        </Container>
+          </Container>
+      }
+      </>
     )
 }
 

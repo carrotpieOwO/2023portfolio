@@ -4,6 +4,8 @@ import skills from '../util/skills';
 import { images } from '../util/imageModule';
 import resume from '../util/resume';
 import Resume from '../Components/Resume';
+import { upDownVariants } from './Home';
+
 const Container = styled(motion.div)`
     min-height: 100vh;
     font-family: 'ChosunGu', sans-serif;
@@ -173,7 +175,7 @@ function About() {
                         }
                     </motion.div>
                     <motion.img src={images.intp} variants={titleVariants} style={{scale}}/ >
-                    <Title variants={titleVariants} custom={1.5} 
+                    <Title variants={upDownVariants} custom={2}
                         position='absolute' bottom='100px' size='60px' 
                         style={{color:titleColor, opacity:scrollOpacity}}>
                             Scroll

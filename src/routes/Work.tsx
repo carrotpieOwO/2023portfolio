@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import works from '../util/works';
 import { cursors } from '../util/imageModule';
 import { WorkType } from '../util/works';
+import { upDownVariants } from './Home';
 
 const Container = styled(motion.div)`
     width: 100vw;
@@ -87,24 +88,6 @@ const containerVariants = {
         }
     }
 }
-const scrollVariants = {
-    start: {
-        opacity: 0.2,
-        y: 15,
-        
-    },
-    end: {
-        opacity: 1,
-        y: -15,
-        transition: {
-            delay: .2,
-            type: 'spring',
-            duration: 1,
-            repeat: Infinity,
-           
-        }
-    }
-};
 
 function Work() {
     const [ layoutId, setLayoutId ] = useState<null | string>(null);
@@ -166,7 +149,7 @@ function Work() {
                     </OpenCard> : null
                 }
             </AnimatePresence>
-            <Scroll variants={scrollVariants} initial='start' animate='end'>
+            <Scroll variants={upDownVariants} initial='start' animate='end'>
                 ⬇︎
             </Scroll>
         </Container>

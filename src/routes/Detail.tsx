@@ -1,9 +1,10 @@
 import { useNavigate, useParams } from "react-router-dom";
 import works from "../util/works";
 import styled from 'styled-components';
-import { AnimatePresence, motion, useScroll, useSpring, useTransform } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { cursors } from '../util/imageModule';
 import { useEffect } from "react";
+import { upDownVariants } from "./Home";
 
 const Container = styled(motion.div)<{background?:string}>`
     width: 100vw;
@@ -113,23 +114,6 @@ const springVariants = {
       }
     })
 };
-const scrollVariants = {
-    start: {
-        opacity: 0,
-        y: 15,
-        
-    },
-    end: {
-        opacity: 1,
-        y: -15,
-        transition: {
-            delay: 1.2,
-            type: 'spring',
-            duration: 1,
-            repeat: Infinity,
-        }
-    }
-};
 const btnVariants = {
     out: {
         background: 'rgb(255, 255, 255)',
@@ -171,7 +155,7 @@ function Detail() {
                         :null
                     }
                 </Summary>
-                <Scroll variants={scrollVariants} color={work?.color}>
+                <Scroll variants={upDownVariants} color={work?.color}>
                     ⬇︎
                 </Scroll>
                 <ButtonWrap  variants={springVariants}>

@@ -25,16 +25,6 @@ function App() {
   const [ openMenu, setOpenMenu ] = useState(false);
   const [ isIntro, setIsIntro ] = useState(true);
     
-  useEffect(() => {
-    const introTimeout = setTimeout(() => {
-      setIsIntro(false)
-    }, 2500);
-
-    return(() => {
-      clearTimeout(introTimeout)
-    })
-  },[])
-
   // test
   useEffect(() => {
     console.log('isIntro', isIntro)
@@ -44,12 +34,12 @@ function App() {
 
   return (
     <MyApp>
-      <Header openMenu={openMenu} setOpenMenu={setOpenMenu}/>
+      <Header openMenu={openMenu} setOpenMenu={setOpenMenu} isIntro={isIntro}/>
       {
         openMenu ? <Menu setOpenMenu={setOpenMenu}/>
         : 
         <Routes>
-          <Route path='/' element={<Home isIntro={isIntro}/>} />
+          <Route path='/' element={<Home isIntro={isIntro} setIsIntro={setIsIntro}/>} />
           <Route path='/about' element={<About/>}/>
           <Route path='/work' element={<Work/>} />
           <Route path='/work/:id' element={<Detail/>} />
