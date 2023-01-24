@@ -109,8 +109,8 @@ const navInfo:NavInfo[] = [
     },
     {
         text: 'WORK',
-        bgColor: 'rgb(172 79 152)',
-        textColor: 'rgb(181 201 149)',
+        bgColor: 'rgb(97, 96, 154)',
+        textColor: 'rgb(244, 237, 51)',
         y: [0, 0],
         x: [0, 200]
     },
