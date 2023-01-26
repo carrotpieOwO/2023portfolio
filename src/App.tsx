@@ -25,13 +25,6 @@ function App() {
   const [ openMenu, setOpenMenu ] = useState(false);
   const [ isIntro, setIsIntro ] = useState(true);
     
-  // test
-  useEffect(() => {
-    console.log('isIntro', isIntro)
-  }, [isIntro])
-
-  const { scrollY, scrollYProgress } = useScroll();
-
   return (
     <MyApp>
       <Header openMenu={openMenu} setOpenMenu={setOpenMenu} isIntro={isIntro}/>

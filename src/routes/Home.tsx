@@ -74,7 +74,7 @@ const containerVariants = {
     background: 'rgb(255, 202, 212)',
     transition: {
       duration: 1.5,
-      delay: .5,
+      //delay: .5,
     }
   }
 }
@@ -159,41 +159,52 @@ const keyboardVariants = {
 
 function Home(props:{isIntro:boolean, setIsIntro:(intro:boolean)=>void}) {
   // const Spline = React.lazy(() => import('@splinetool/react-spline'));
-
   const [ enter, setEenter ] = useState(false);
-  const [ keyAnyStart, setKeyAnyStart ] = useState(false);
   const [ textAnyDone, setTextAnyDone ] = useState(false);
+  const [ infoText, setInfoText ] = useState('Press any key.');
 
   useEffect(() => {
-    const introTimeout = setTimeout(() => {
-      enter && props.setIsIntro(false)
-    }, 1000);
-
-    return(() => {
-      clearTimeout(introTimeout)
-    })
+    if(enter) {
+      const introTimeout = setTimeout(() => {
+        props.setIsIntro(false)
+      }, 1000);  
+      
+      return(() => {
+        clearTimeout(introTimeout)
+      })
+    } else {
+      window.addEventListener('keydown', onKeyDown)
+      return () => {
+        window.removeEventListener('keydown', onKeyDown)
+      }
+    }
   },[enter])
 
-  const onAnimationStart = () => {
-    setKeyAnyStart(true);
-  }
   const onAnimationComplete = () => {
     setTextAnyDone(true);
   }
 
+  const onKeyDown = (e:KeyboardEvent) => {
+    var check = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/; 
+    if(check.test(e.key)) {
+      setInfoText('Only English key!');
+    } else {
+      setInfoText('Press any key.');
+    }
+  }
+
   const onKeyUp = (e: SplineEvent) => {
-    console.log('e.target.name ', e.target.name )
     e.target.name === 'enter' && setEenter(true);
   }
 
   return (
-      <Container variants={ keyAnyStart ? containerVariants  :  introVariants } initial="start" animate="end">
+      <Container variants={ props.isIntro ? introVariants  :  containerVariants } initial="start" animate="end">
           {
               props.isIntro && !enter ? (
                 // <Suspense fallback={<CenterDiv><TitleBox>loading...</TitleBox></CenterDiv>}>
                 <>
                   <Information variants={informationVariants} animate='animate'>
-                    <TitleBox>Press any key</TitleBox>
+                    <TitleBox>{infoText}</TitleBox>
                   </Information>
                   <Control>
                     <ControlGrid>
@@ -212,7 +223,7 @@ function Home(props:{isIntro:boolean, setIsIntro:(intro:boolean)=>void}) {
               )
               :
               props.isIntro && enter ? 
-                <Keyboard variants={keyboardVariants} onAnimationStart={onAnimationStart}>
+                <Keyboard variants={keyboardVariants}>
                   <img src={imageModule.images.keyboardIntro} alt="keyboard" style={{width: '80%'}}/>
                 </Keyboard>
               :

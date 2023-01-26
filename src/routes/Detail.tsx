@@ -9,7 +9,7 @@ import { upDownVariants } from "./Home";
 const Container = styled(motion.div)<{background?:string}>`
     width: 100vw;
     font-family: 'ChosunGu', sans-serif;
-    min-height: 500vh;
+    min-height: 200vh;
     background-color: ${props => props.background};
 `
 const Cover = styled(motion.div)<{background?:string}>`
@@ -78,16 +78,21 @@ const Button = styled(motion.button)`
         cursor: url(${cursors.pointerCursor}), auto;
     }
 `
-const Card = styled(motion.div)<{background?: string}>`
-    width: 70vw;
-    border-radius: 20px;
-    height: 50vh;
+const CardWrap = styled.div<{flexColumn?: boolean}>`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    flex-direction: ${props => props.flexColumn && 'column'};
+`
+const Card = styled(motion.div)<{background?: string, size:[number, number]}>`
+    width: ${props => props.size[0]}vw;
+    height: ${props => props.size[1]}vh;
+    border-radius: 1%;
     background-image: url(${props => props.background});
     background-size: cover;
     overflow: hidden;
     box-shadow: 0 5px 5px rgba(0,0,0,0.2);
-    margin-left: auto;
-    margin-right: auto;
 `
 const springVariants = {
     start: (custom?:boolean) => ({
@@ -172,16 +177,26 @@ function Detail() {
                 {
                     work?.contents.map(content => 
                         <>
-                            <Card background={content.image} 
-                                variants={springVariants} 
-                                custom={true} 
-                                initial='start' 
-                                whileInView='end'
-                                viewport={{ once: true, amount: 0.3 }}
-                            ></Card>
+                            <CardWrap flexColumn={content.flexColumn}>
+                            {
+                                content.images.map( item => 
+                                    <Card background={item.image} 
+                                        size={item.size? item.size : [70, 60]}
+                                        variants={springVariants} 
+                                        custom={true} 
+                                        initial='start' 
+                                        whileInView='end'
+                                        viewport={{ once: true, amount: 0.3 }}
+                                    ></Card>
+                                )
+                            }
+                            </CardWrap>
                             <Content>
                             {
-                                content.content.map(c => <Text variants={springVariants} initial='start' whileInView='end' >🐰 {c}</Text>)
+                                content.content.map( item => 
+                                    <Text variants={springVariants} initial='start' whileInView='end' >
+                                        🐰 {item}
+                                    </Text>)
                             }
                             </Content>
                         </>

@@ -73,7 +73,7 @@ const OpenCard = styled(Card)<{color?: string}>`
     font-family:  'Black Han Sans', sans-serif;
     font-size: 200px;
     color: ${props => props.color};
-    z-index: 2;
+    z-index: 9;
 `
 const containerVariants = {
     start: {
