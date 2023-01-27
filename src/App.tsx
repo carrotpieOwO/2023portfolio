@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import imageModule from './util/imageModule';
-import Header from './Components/Header';
-import Menu from './Components/Menu';
-import Home from './Routes/Home';
-import NotFoundPage from './Routes/404';
-import About from './Routes/About';
-import Work from './Routes/Work';
-import Detail from './Routes/Detail';
-import Contact from './Routes/Contact';
+import Header from './components/Header';
+import Menu from './components/Menu';
+import Home from './routes/Home';
+import NotFoundPage from './routes/404';
+import About from './routes/About';
+import Work from './routes/Work';
+import Detail from './routes/Detail';
+import Contact from './routes/Contact';
 import { Routes, Route } from 'react-router-dom';
 
 const MyApp = styled.div`

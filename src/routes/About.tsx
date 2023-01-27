@@ -2,7 +2,7 @@ import { motion, useScroll, useSpring, useTransform } from 'framer-motion';
 import styled from 'styled-components';
 import skills from '../util/skills';
 import resume from '../util/resume';
-import Resume from '../Components/Resume';
+import Resume from '../components/Resume';
 import { upDownVariants } from './Home';
 import { SplineEvent } from '@splinetool/react-spline';
 import Spline from '@splinetool/react-spline';

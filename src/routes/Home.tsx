@@ -2,7 +2,7 @@ import React, { useEffect, useState, Suspense, useRef } from 'react';
 import { motion } from 'framer-motion';
 import styled from 'styled-components';
 import imageModule from '../util/imageModule';
-import FlyingKeycaps from '../Components/FlyingKeycaps';
+import FlyingKeycaps from '../components/FlyingKeycaps';
 // import Spline from '@splinetool/react-spline';
 import { SplineEvent } from '@splinetool/react-spline';
 import { Application, SPEObject } from '@splinetool/runtime';
