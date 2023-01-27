@@ -9,6 +9,7 @@ import NotFoundPage from './Routes/404';
 import About from './Routes/About';
 import Work from './Routes/Work';
 import Detail from './Routes/Detail';
+import Contact from './Routes/Contact';
 import { Routes, Route } from 'react-router-dom';
 
 const MyApp = styled.div`
@@ -36,7 +37,7 @@ function App() {
           <Route path='/about' element={<About/>}/>
           <Route path='/work' element={<Work/>} />
           <Route path='/work/:id' element={<Detail/>} />
-          <Route />
+          <Route path='/contact' element={<Contact/>}/>
           <Route path='*' element={<NotFoundPage/>} />
         </Routes>
       }

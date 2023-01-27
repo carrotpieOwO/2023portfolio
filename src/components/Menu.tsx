@@ -116,18 +116,11 @@ const navInfo:NavInfo[] = [
     },
     {
         text: 'CONTACT',
-        bgColor: 'rgb(249 204 114)',
-        textColor: 'rgb(172 79 152)',
+        bgColor: 'rgb(249, 204, 114)',
+        textColor: 'rgb(172, 79, 152)',
         y: [500, 207],
         x: [0, 0]
     },
-    // {
-    //     text: 'BLOG',
-    //     bgColor: 'rgb(97 96 154)',
-    //     textColor: 'rgb(244 237 51)',
-    //     y: [500, 380],
-    //     x: [100, 0]
-    // }
 ]
 
 

@@ -19,9 +19,11 @@ import notFound from '../img/404.png'
 import backSpace from '../img/backspace.png'
 import backSpaceActive from '../img/backspace_active.png'
 import intp from '../img/intp.png'
+import git from '../img/git.png'
+import velog from '../img/velog.png'
 
 const cursors = { rabbitCursor, rabbitCursorClicked, handCursor, pointerCursor }
-const icons = { homeIcon, menuIcon }
+const icons = { homeIcon, menuIcon, git, velog }
 const images = { keyboardIntro, notFound, backSpace, backSpaceActive, intp }
 const flyingKeycaps = [ hKey, aKey, yKey, oKey, nKey, gKey ]
 const imageModule = { cursors, icons, images, flyingKeycaps }

@@ -9,7 +9,7 @@ const Container = styled.header`
   top: 0;
   right: 0;
   width: 100vw;
-  z-index: 8;
+  z-index: 11;
   overflow: hidden;
 `
 const MenuBtnContainer = styled(motion.div)`

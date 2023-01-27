@@ -1,10 +1,14 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, Suspense, useRef } from 'react';
 import { motion } from 'framer-motion';
 import styled from 'styled-components';
 import imageModule from '../util/imageModule';
 import FlyingKeycaps from '../Components/FlyingKeycaps';
-import Spline from '@splinetool/react-spline';
+// import Spline from '@splinetool/react-spline';
 import { SplineEvent } from '@splinetool/react-spline';
+import { Application, SPEObject } from '@splinetool/runtime';
+import { useNavigate } from 'react-router-dom';
+
+const Spline = React.lazy(() => import('@splinetool/react-spline'));
 
 const Container = styled(motion.div)`
   height: 100vh;
@@ -16,7 +20,7 @@ const Control = styled(motion.div)`
   justify-content: center;
   align-items: center;
   position: fixed;
-  bottom: 18vh;
+  top: 10vh;
   font-size: 20px;
 `
 const Information = styled(Control)`
@@ -49,11 +53,11 @@ const FlexDiv = styled(motion.div)`
   justify-content: center;
   align-items: center;
 `
-const Wrapper = styled.div`
+const Wrapper = styled(motion.div)`
     position: relative;
     top: calc(100vh/4);
     text-align: center;
-    top: 25vh;
+    /* z-index: 11; */
 `
 const TitleBox = styled(motion.div)`
   overflow: 'hidden';
@@ -91,16 +95,6 @@ const introVariants = {
     }
   }
 }
-const informationVariants = {
-  animate: {
-    scale: [1, 1.5, 1],
-    transition: {
-      duration: 3,
-      times: [0, 0.2, 0.5],
-      repeat: Infinity
-    }
-  }
-}
 export const upDownVariants = {
   start: {
     y: 15
@@ -134,13 +128,25 @@ const titleVariants = {
 const titleEndVariants = {
   end: (custom :number[]) => ({
     scale: custom[1],
-    y: -50,
+    // y: -50,
     color: custom[1] < 1 ? 'rgb(196, 189, 243)' : 'rgb(248, 251, 165)',
     transition: {
       duration: 1,
       type: 'spring',
     }
   })
+}
+const titleWrapperVariants1 = {
+  end: {
+    scale: 1,
+    y: 0,
+  }
+}
+const titleWrapperVariants = {
+  end: {
+    scale: .5,
+    y: -280,
+  }
 }
 const keyboardVariants = {
   start: {
@@ -158,10 +164,11 @@ const keyboardVariants = {
 }
 
 function Home(props:{isIntro:boolean, setIsIntro:(intro:boolean)=>void}) {
-  // const Spline = React.lazy(() => import('@splinetool/react-spline'));
+  const navigate = useNavigate();
   const [ enter, setEenter ] = useState(false);
   const [ textAnyDone, setTextAnyDone ] = useState(false);
-  const [ infoText, setInfoText ] = useState('Press any key.');
+  // const [ infoText, setInfoText ] = useState('Press any key.');
+  const computer = useRef<SPEObject | undefined>(undefined);
 
   useEffect(() => {
     if(enter) {
@@ -172,29 +179,56 @@ function Home(props:{isIntro:boolean, setIsIntro:(intro:boolean)=>void}) {
       return(() => {
         clearTimeout(introTimeout)
       })
-    } else {
-      window.addEventListener('keydown', onKeyDown)
-      return () => {
-        window.removeEventListener('keydown', onKeyDown)
-      }
-    }
+    } 
+    // else {
+    //   window.addEventListener('keydown', onKeyDown)
+    //   return () => {
+    //     window.removeEventListener('keydown', onKeyDown)
+    //   }
+    // }
   },[enter])
 
   const onAnimationComplete = () => {
     setTextAnyDone(true);
   }
 
-  const onKeyDown = (e:KeyboardEvent) => {
-    var check = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/; 
-    if(check.test(e.key)) {
-      setInfoText('Only English key!');
-    } else {
-      setInfoText('Press any key.');
-    }
-  }
+  // const onKeyDown = (e:KeyboardEvent) => {
+  //   var check = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/; 
+  //   if(check.test(e.key)) {
+  //     setInfoText('Only English key!');
+  //   } else {
+  //     setInfoText('Press any key.');
+  //   }
+  // }
 
   const onKeyUp = (e: SplineEvent) => {
     e.target.name === 'enter' && setEenter(true);
+  }
+
+  const onLoad = (spline:Application) => {
+    const obj = spline.findObjectByName('computer');
+    computer.current = obj;
+  }
+
+  const onMouseDown = (e:SplineEvent) => {
+    console.log('e,,,', e)
+    switch (e.target.name) {
+      case 'computer': goPage('work');
+        break;
+      case 'picture': goPage('about');
+        break;
+      case 'phone': goPage('contact');
+        break;
+        
+      default:
+        break;
+    }
+  }
+
+
+  const goPage = (link: string) => {
+    navigate(link);
+    // props.setOpenMenu(false);
   }
 
   return (
@@ -203,9 +237,9 @@ function Home(props:{isIntro:boolean, setIsIntro:(intro:boolean)=>void}) {
               props.isIntro && !enter ? (
                 // <Suspense fallback={<CenterDiv><TitleBox>loading...</TitleBox></CenterDiv>}>
                 <>
-                  <Information variants={informationVariants} animate='animate'>
+                  {/* <Information variants={informationVariants} animate='animate'>
                     <TitleBox>{infoText}</TitleBox>
-                  </Information>
+                  </Information> */}
                   <Control>
                     <ControlGrid>
                       <ControlText size={20} color='#c94245' variants={upDownVariants} custom={0} initial='start' animate='end'>🖱️⟳</ControlText> 
@@ -216,8 +250,9 @@ function Home(props:{isIntro:boolean, setIsIntro:(intro:boolean)=>void}) {
                       <ControlText size={16} color='#666363' variants={upDownVariants} custom={2} initial='start' animate='end'>home</ControlText>
                     </ControlGrid>
                   </Control>
-                  <Spline scene="https://prod.spline.design/IDif4eUTn3x-L0Ir/scene.splinecode"
-                    onKeyUp={(e) => onKeyUp(e)}/>
+                  <Spline scene="https://prod.spline.design/05OGMrcvZxiiTCIg/scene.splinecode" onKeyUp={(e) => onKeyUp(e)}/>
+
+                  
                 </>
                 // </Suspense>
               )
@@ -229,7 +264,7 @@ function Home(props:{isIntro:boolean, setIsIntro:(intro:boolean)=>void}) {
               :
               <>
                 <FlyingKeycaps isIntro={props.isIntro} />
-                <Wrapper>
+                <Wrapper variants={textAnyDone ? titleWrapperVariants : titleWrapperVariants1} animate='end'>
                     <FlexDiv>
                         <TitleBox custom={[0, .8]} variants={textAnyDone ? titleEndVariants :titleVariants} initial="start" animate="end">
                         Wellcome
@@ -245,6 +280,13 @@ function Home(props:{isIntro:boolean, setIsIntro:(intro:boolean)=>void}) {
                         page
                     </TitleBox>
                 </Wrapper>
+                <Suspense fallback={<div>Loading...</div>}>
+                    <Spline scene="https://prod.spline.design/LdTuZSJ57Ss1RM5s/scene.splinecode" 
+                      style={{position: 'fixed', top: '0', zIndex: '10'}}
+                      onMouseDown={onMouseDown}
+
+                    />
+                </Suspense>
                 </>
           }
           

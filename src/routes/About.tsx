@@ -1,10 +1,12 @@
 import { motion, useScroll, useSpring, useTransform } from 'framer-motion';
 import styled from 'styled-components';
 import skills from '../util/skills';
-import { images } from '../util/imageModule';
 import resume from '../util/resume';
 import Resume from '../Components/Resume';
 import { upDownVariants } from './Home';
+import { SplineEvent } from '@splinetool/react-spline';
+import Spline from '@splinetool/react-spline';
+import { useState } from 'react';
 
 const Container = styled(motion.div)`
     min-height: 100vh;
@@ -29,6 +31,14 @@ const Title = styled(motion.div)<{position?: string, bottom?: string, size?: str
     position: ${props => props.position ? props.position : 'static'};
     bottom: ${props => props.bottom ? props.bottom : 'auto'};
 
+`
+const IntroduceBox = styled(motion.div)`
+    background-color: rgba(255, 255, 255, .6);
+    border-radius: 10px;
+    position: fixed;
+    padding: 30px;
+    right: 10vw;
+    top: 30vh;
 `
 const SectionContainer = styled.div`
     min-height: 200vh;
@@ -138,7 +148,8 @@ const cardVariants = {
 
 function About() {
     const { scrollYProgress } = useScroll();
-    
+    const [ introduce, setIntroduce ] = useState(false);
+
     const y = useTransform(scrollYProgress, [0, 1], [0, 100])
     const springY = useSpring(y, {
         stiffness: 100,
@@ -154,27 +165,38 @@ function About() {
     })
     
     const scrollOpacity = useTransform(scrollYProgress, [.8, 1], [1, 0])
-    const scale = useTransform(scrollYProgress, [.1, .15], [1, .5])
     const titleSize = useTransform(scrollYProgress, [0, .2], ['100px', '20px'])
-    const textSize = useTransform(scrollYProgress, [.14, .2], ['12px', '18px'])
-    const opacity = useTransform(scrollYProgress, [0, .2], [0, 1]);
     const background = useTransform(scrollYProgress, [.4, .5], ['rgb(248, 193, 186)', 'rgb(97, 96, 154)'])
     const titleColor = useTransform(scrollYProgress, [.4, .5], ['rgb(201, 66, 69)', 'rgb(248, 193, 186)'])
-    const textColor = useTransform(scrollYProgress, [.4, .5], ['rgb(0, 0, 0)', 'rgb(255, 255, 255)'])
-    
+
+    const onMouseHover = (e:SplineEvent) => {
+        e.target.name === 'head' ? setIntroduce(true) : setIntroduce(false);
+    }
+
+    const onMouseDown = (e:SplineEvent) => {
+        e.target.name === 'computer' ? window.location.href = '#skill' : window.location.href = '#resume';
+    }
+
     return (
         <Container variants={containerVariants} initial='start' animate='end'>
+            {
+                introduce &&
+                <IntroduceBox variants={skillVariants}>
+                {
+                    resume.introduce.map((text, i) => {
+                        return <Text key={i} style={{  }}>{text}</Text>        
+                    })
+                }
+                </IntroduceBox>
+            }
+            
             <motion.div style={{height: '100vh'}}>
                 <TitleWrap style={{ left: springX, y:springY }}>
                     <Title variants={titleVariants} style={{ fontSize: titleSize, color:titleColor }}>INTP (논리적인 사색가)</Title>
-                    <motion.div style={{ color:textColor}}>
-                        {
-                            resume.introduce.map((text, i) => {
-                                return <Text key={i} style={{ opacity, fontSize: textSize }}>{text}</Text>        
-                            })
-                        }
-                    </motion.div>
-                    <motion.img src={images.intp} variants={titleVariants} style={{scale}}/ >
+                    <Spline scene="https://prod.spline.design/5m-7X8TXgkJktJ8H/scene.splinecode" 
+                        onMouseHover={onMouseHover}
+                        onMouseDown={onMouseDown}
+                    />
                     <Title variants={upDownVariants} custom={2}
                         position='absolute' bottom='100px' size='60px' 
                         style={{color:titleColor, opacity:scrollOpacity}}>
@@ -184,7 +206,7 @@ function About() {
                 
             </motion.div>
             
-            <SectionContainer>
+            <SectionContainer id="skill">
                 <Section style={{background}} initial='offscreen' whileInView='onscreen' viewport={{once: false, amount:1}}>
                     <Card variants={cardVariants}>
                         {
@@ -200,7 +222,7 @@ function About() {
                     </Card>
                 </Section>
             </SectionContainer>
-            <SectionContainer>
+            <SectionContainer id="resume">
                 <Section style={{ background }} initial='offscreen' whileInView='onscreen' viewport={{once: false, amount:.7}}>
                     <TimeLine>
                         <Title position='absolute' initial={{opacity: 0, x: 500}} whileInView={{opacity: 1, x: 20}} viewport={{once: false, amount:.1}}>
