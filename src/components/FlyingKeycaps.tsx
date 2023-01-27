@@ -43,8 +43,10 @@ function FlyingKeycaps(props: {isIntro:boolean}) {
     return (
         <>
             {
-                flyingKeycaps.map((keyCap) => {
-                    return <MovingKey img={keyCap} custom={props.isIntro ? 1 : .01} variants={keyVariants} initial="start" animate="end" onAnimationComplete={onAnimationComplete}/>  
+                flyingKeycaps.map((keyCap, i) => {
+                    return <MovingKey key={i} img={keyCap} custom={props.isIntro ? 1 : .01} 
+                        variants={keyVariants} initial="start" animate="end" 
+                        onAnimationComplete={onAnimationComplete}/>  
                 })
             }
         </>

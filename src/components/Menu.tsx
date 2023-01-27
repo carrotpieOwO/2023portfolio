@@ -1,14 +1,12 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { motion } from 'framer-motion';
 import styled from 'styled-components';
-import { cats } from '../util/imageModule';
 import { cursors } from '../util/imageModule';
 import { useNavigate } from 'react-router-dom';
 
 const MenuContainer = styled(motion.div)`
     height: 100vh;
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
+    display: flex;
     justify-content: center;
     align-items: center;
     text-align: center;
@@ -19,9 +17,6 @@ const Li = styled(motion.div)`
     overflow: 'hidden';
     height: 170px;
     height: 170px;
-`
-const Ul = styled.ul`
-    position: absolute;
 `
 const Nav = styled.nav`
     position: relative;
@@ -37,13 +32,9 @@ const NavItem = styled(motion.a)`
         cursor: url(${cursors.pointerCursor}), auto;
     }
 `
-const Image = styled(motion.img)`
-    width: 100%;
-`
 const containerVariants = {
     start: {
         background: 'rgb(242, 158, 192)',
-        // boxShadow: '0px 0px 0px 25px rgb(242, 158, 192) inset'
     },
     end: (custom :string) => ({
         boxShadow: '0px 0px 0px 20px rgb(235, 84, 145) inset',
@@ -73,19 +64,6 @@ const listVariants = {
 const itemVariants = {
     animate: (custom :string) => ({
         color: custom,
-        transition: {
-            duration: .5
-        }
-    })
-}
-const imageVariants = {
-    start: (custom: NavInfo) => ({
-        y: custom.y[0],
-        x: custom.x[0],
-    }),
-    end: (custom: NavInfo) => ({
-        y: custom.y[1],
-        x: custom.x[1],
         transition: {
             duration: .5
         }
@@ -128,12 +106,10 @@ function Menu(props:{setOpenMenu:(a:boolean)=>void}) {
     const navigate = useNavigate();
     const [ bgColor, setBgColor ] = useState('rgb(196, 189, 243)');
     const [ textColor, setTextColor ] = useState('rgb(248, 251, 165)');
-    const [ hoveredItem, setHoveredItem ] = useState<NavInfo | null>(null);
     
     const hoverStart = (t: NavInfo) => {
         setBgColor(t.bgColor)
         setTextColor(t.textColor)
-        setHoveredItem(t)
     }
 
     const goPage = (link: string) => {
@@ -143,16 +119,12 @@ function Menu(props:{setOpenMenu:(a:boolean)=>void}) {
     
     return (
         <MenuContainer custom={bgColor} variants={containerVariants} initial="start" animate="end">
-            <div>
-                { hoveredItem?.text === 'ABOUT' && <Image src={cats.cat} variants={imageVariants} custom={hoveredItem}/> }
-                { hoveredItem?.text === 'WORK' && <Image src={cats.cat3} variants={imageVariants} custom={hoveredItem}/> }
-            </div>
             <Nav>
-                <Ul>
+                <ul>
                 {
                     navInfo.map((t, i) => {
                         return (
-                            <Li custom={i%2 === 0 ? 10 : -10} variants={listVariants} initial="start" animate="end">
+                            <Li key={t.text} custom={i%2 === 0 ? 10 : -10} variants={listVariants} initial="start" animate="end">
                                 <NavItem variants={itemVariants} animate="animate" custom={textColor} 
                                     whileHover={{textDecorationLine: 'line-through', textDecorationThickness: '2rem'}}
                                     onHoverStart={() => hoverStart(t)}
@@ -163,16 +135,8 @@ function Menu(props:{setOpenMenu:(a:boolean)=>void}) {
                         )
                     })
                 }
-                </Ul>
-                {
-                    hoveredItem?.text === 'BLOG' && <Image src={cats.cat4} variants={imageVariants} custom={hoveredItem} initial="start" animate="end"/>
-                }
+                </ul>
             </Nav>
-            <div>
-                {
-                    hoveredItem?.text === 'CONTACT' && <Image src={cats.cat2} variants={imageVariants} custom={hoveredItem} initial="start" animate="end"/> 
-                }
-            </div>
         </MenuContainer>
     )
 }

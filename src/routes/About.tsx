@@ -7,16 +7,18 @@ import { upDownVariants } from './Home';
 import { SplineEvent } from '@splinetool/react-spline';
 import Spline from '@splinetool/react-spline';
 import { useState } from 'react';
+import { useRef } from 'react';
+import { useEffect } from 'react';
 
 const Container = styled(motion.div)`
     min-height: 100vh;
-    font-family: 'ChosunGu', sans-serif;
+    font-family: 'Nanum Gothic Coding', monospace;
 `
 const TitleWrap = styled(motion.div)`
     height: 100vh;
+    margin-top: 100px;
     display: flex;
     align-items: center;
-    justify-content: center;
     flex-direction: column;
     position: fixed;
     z-index: 2;
@@ -39,6 +41,7 @@ const IntroduceBox = styled(motion.div)`
     padding: 30px;
     right: 10vw;
     top: 30vh;
+    line-height: 1.5rem;
 `
 const SectionContainer = styled.div`
     min-height: 200vh;
@@ -149,6 +152,15 @@ const cardVariants = {
 function About() {
     const { scrollYProgress } = useScroll();
     const [ introduce, setIntroduce ] = useState(false);
+    const [ titleWidth, setTitleWidht ] = useState(0);
+
+    const titleRef = useRef<HTMLDivElement>(null);
+    
+    useEffect(() => {
+        if(titleRef && titleRef.current) {
+            setTitleWidht(titleRef.current.clientWidth);
+        }
+    }, [titleRef])
 
     const y = useTransform(scrollYProgress, [0, 1], [0, 100])
     const springY = useSpring(y, {
@@ -157,15 +169,18 @@ function About() {
         bounce: 1,
         duration: 1,
     })
-    const startX = window.innerWidth / 4;
-    const x = useTransform(scrollYProgress, [.1, .2], [startX, 0]);
+
+    const startX = window.innerWidth / 2 - (titleWidth / 2);
+
+    const x = useTransform(scrollYProgress, [0, .2], [startX, 0]);
     const springX = useSpring(x, {
         stiffness: 100,
         damping: 30,
     })
     
     const scrollOpacity = useTransform(scrollYProgress, [.8, 1], [1, 0])
-    const titleSize = useTransform(scrollYProgress, [0, .2], ['100px', '20px'])
+    const scrollSize = useTransform(scrollYProgress, [0, 1], ['60px', '30px'])
+    const titleSize = useTransform(scrollYProgress, [0, .2], ['100px', '30px'])
     const background = useTransform(scrollYProgress, [.4, .5], ['rgb(248, 193, 186)', 'rgb(97, 96, 154)'])
     const titleColor = useTransform(scrollYProgress, [.4, .5], ['rgb(201, 66, 69)', 'rgb(248, 193, 186)'])
 
@@ -182,24 +197,29 @@ function About() {
             {
                 introduce &&
                 <IntroduceBox variants={skillVariants}>
-                {
-                    resume.introduce.map((text, i) => {
-                        return <Text key={i} style={{  }}>{text}</Text>        
-                    })
-                }
+                    안녕하세요. <br/>
+                    프론트엔드 개발자 최하영입니다. <br/>
+                    프론트 개발을 좋아하는 이유는<br/>
+                    상상했던 것을 눈에 보이게 만드는 일이기 때문입니다. <br/>
+                    사용자 경험을 더욱 직관적이고 <br/>
+                    풍부하게 만드는 것에 열정을 가지고 있습니다.<br/>
+                    <br/>
+                    키보드를 좋아하고, 타건은 더 좋아하는 개발자.<br/>
+                    멋진 키보드로 특별한 것을 만들어 나가고 싶습니다.
                 </IntroduceBox>
             }
             
             <motion.div style={{height: '100vh'}}>
-                <TitleWrap style={{ left: springX, y:springY }}>
-                    <Title variants={titleVariants} style={{ fontSize: titleSize, color:titleColor }}>INTP (논리적인 사색가)</Title>
+                <TitleWrap style={{ left: springX, y:springY }} ref={titleRef}>
+                    <Title variants={titleVariants} style={{ fontSize: titleSize, color:titleColor }}>
+                        INTP (논리적인 사색가)
+                    </Title>
                     <Spline scene="https://prod.spline.design/5m-7X8TXgkJktJ8H/scene.splinecode" 
                         onMouseHover={onMouseHover}
                         onMouseDown={onMouseDown}
                     />
                     <Title variants={upDownVariants} custom={2}
-                        position='absolute' bottom='100px' size='60px' 
-                        style={{color:titleColor, opacity:scrollOpacity}}>
+                        style={{color:titleColor, opacity:scrollOpacity, fontSize:scrollSize}}>
                             Scroll
                     </Title>
                 </TitleWrap>

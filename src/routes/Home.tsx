@@ -23,10 +23,6 @@ const Control = styled(motion.div)`
   top: 10vh;
   font-size: 20px;
 `
-const Information = styled(Control)`
-  bottom: auto;
-  top: 10vh;
-`
 const ControlGrid = styled.div`
   display:grid;
   grid-template-columns: 1fr 1fr 1fr;
@@ -167,8 +163,6 @@ function Home(props:{isIntro:boolean, setIsIntro:(intro:boolean)=>void}) {
   const navigate = useNavigate();
   const [ enter, setEenter ] = useState(false);
   const [ textAnyDone, setTextAnyDone ] = useState(false);
-  // const [ infoText, setInfoText ] = useState('Press any key.');
-  const computer = useRef<SPEObject | undefined>(undefined);
 
   useEffect(() => {
     if(enter) {
@@ -180,38 +174,17 @@ function Home(props:{isIntro:boolean, setIsIntro:(intro:boolean)=>void}) {
         clearTimeout(introTimeout)
       })
     } 
-    // else {
-    //   window.addEventListener('keydown', onKeyDown)
-    //   return () => {
-    //     window.removeEventListener('keydown', onKeyDown)
-    //   }
-    // }
   },[enter])
 
   const onAnimationComplete = () => {
     setTextAnyDone(true);
   }
 
-  // const onKeyDown = (e:KeyboardEvent) => {
-  //   var check = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/; 
-  //   if(check.test(e.key)) {
-  //     setInfoText('Only English key!');
-  //   } else {
-  //     setInfoText('Press any key.');
-  //   }
-  // }
-
   const onKeyUp = (e: SplineEvent) => {
     e.target.name === 'enter' && setEenter(true);
   }
 
-  const onLoad = (spline:Application) => {
-    const obj = spline.findObjectByName('computer');
-    computer.current = obj;
-  }
-
   const onMouseDown = (e:SplineEvent) => {
-    console.log('e,,,', e)
     switch (e.target.name) {
       case 'computer': goPage('work');
         break;
@@ -219,7 +192,6 @@ function Home(props:{isIntro:boolean, setIsIntro:(intro:boolean)=>void}) {
         break;
       case 'phone': goPage('contact');
         break;
-        
       default:
         break;
     }
@@ -237,9 +209,6 @@ function Home(props:{isIntro:boolean, setIsIntro:(intro:boolean)=>void}) {
               props.isIntro && !enter ? (
                 // <Suspense fallback={<CenterDiv><TitleBox>loading...</TitleBox></CenterDiv>}>
                 <>
-                  {/* <Information variants={informationVariants} animate='animate'>
-                    <TitleBox>{infoText}</TitleBox>
-                  </Information> */}
                   <Control>
                     <ControlGrid>
                       <ControlText size={20} color='#c94245' variants={upDownVariants} custom={0} initial='start' animate='end'>🖱️⟳</ControlText> 
@@ -284,7 +253,6 @@ function Home(props:{isIntro:boolean, setIsIntro:(intro:boolean)=>void}) {
                     <Spline scene="https://prod.spline.design/LdTuZSJ57Ss1RM5s/scene.splinecode" 
                       style={{position: 'fixed', top: '0', zIndex: '10'}}
                       onMouseDown={onMouseDown}
-
                     />
                 </Suspense>
                 </>

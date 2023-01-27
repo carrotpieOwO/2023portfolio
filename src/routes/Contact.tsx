@@ -36,8 +36,8 @@ const Card = styled(motion.div)`
     border: 5px dashed purple;
     gap: 10px;
 `
-const Link = styled(motion.a)<{bgColor:string}>`
-    background: ${props => props.bgColor};
+const Link = styled(motion.a)<{bgcolor:string}>`
+    background: ${props => props.bgcolor};
     padding: 10px;
     border-radius: 10px;
     color: #000;
@@ -103,7 +103,7 @@ type LinkItem  = {
     content?: string,
     image?: string,
     link: string,
-    bgColor: string,
+    bgcolor: string,
     color: string,
 }
 const contactList: LinkItem[] = [
@@ -111,39 +111,38 @@ const contactList: LinkItem[] = [
         title: 'EMAIL',
         content: 'xxhayoxx@naver.com',
         link: 'mailto:xxhayoxx@naver.com',
-        bgColor: 'rgb(172, 79, 152)',
+        bgcolor: 'rgb(172, 79, 152)',
         color: 'rgb(181, 201, 149)',
     },
     {
         title: 'GITHUB',
         image: icons.git,
         link: 'https://github.com/carrotpieOwO',
-        bgColor: 'rgb(66, 66, 66)',
+        bgcolor: 'rgb(66, 66, 66)',
         color: 'rgb(0, 0, 0)',
     },
     {
         title: 'RESUME',
         content: '이력서 보러가기',
-        link: '',
-        bgColor: 'rgb(248, 193, 186)',
+        link: 'https://inky-cloud-bda.notion.site/8692ead489654e929a03f4b39c12af36',
+        bgcolor: 'rgb(248, 193, 186)',
         color: 'rgb(201, 66, 69)',
     },
     {
         title: 'VELOG',
         image: icons.velog,
         link: 'https://velog.io/@ha0',
-        bgColor: 'rgb(181, 201, 149)',
+        bgcolor: 'rgb(181, 201, 149)',
         color: 'rgb(34, 201, 151)',
     },
 ]
 
-contactList.forEach(item => console.log('item', typeof(item.content)))
 function Contact() {
     const [ bgColor, setBgColor ] = useState('rgb(196, 189, 243)');
     const [ textColor, setTextColor ] = useState('rgb(248, 251, 165)');
     
     const onHoverStart = (c: LinkItem) => {
-        setBgColor(c.bgColor)
+        setBgColor(c.bgcolor)
         setTextColor(c.color)
     }
 
@@ -157,10 +156,10 @@ function Contact() {
             <Content variants={listVariants}>
                 {
                     contactList.map(item => 
-                        <Card variants={cardVariants} onHoverStart={() => onHoverStart(item)}>
+                        <Card key={item.title} variants={cardVariants} onHoverStart={() => onHoverStart(item)}>
                             <Title size={50} color={item.color}>{item.title}</Title>
                             {
-                                item.content && <Link href={item.link} bgColor={item.color} target='_blank' whileHover={{ scale: 1.1 }}
+                                item.content && <Link href={item.link} bgcolor={item.color} target='_blank' whileHover={{ scale: 1.1 }}
                                 >
                                     {item.content}
                                 </Link>

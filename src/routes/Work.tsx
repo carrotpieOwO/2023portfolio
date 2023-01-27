@@ -9,7 +9,7 @@ import { upDownVariants } from './Home';
 
 const Container = styled(motion.div)`
     width: 100vw;
-    font-family: 'ChosunGu', sans-serif;
+    font-family: 'Nanum Gothic Coding', monospace;
     min-height: 500vh;
 `
 const Scroll = styled(motion.div)`
@@ -88,6 +88,21 @@ const containerVariants = {
         }
     }
 }
+const scaleVariants = {
+  start: (custom:number) => ({
+      opacity: 0,
+      scale: custom,
+  }),
+  end: (custom:number) => ({
+      scale: 1,
+      opacity: 1,
+      transition: {
+          type: 'spring',
+          bounce: .8,
+          duration: 2,
+      }
+  })
+}
 
 function Work() {
     const [ layoutId, setLayoutId ] = useState<null | string>(null);
@@ -125,11 +140,13 @@ function Work() {
     
     return (
         <Container variants={containerVariants} initial='start' animate='end'>
-            <MainTitle>Works</MainTitle>
+            <MainTitle variants={scaleVariants} custom={0}>Works</MainTitle>
             <CardWrap style={{left: springX}}>
             {
                 works.map(( item, i ) => 
                     <Card key={item.projectId} layoutId={item.projectId} 
+                        variants={scaleVariants}
+                        custom={.5}
                         whileTap={{ scale: 0.9 }}
                         background={item.mainImg}
                         onClick={() => onClick(item)}

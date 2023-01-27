@@ -44,10 +44,11 @@ const Scroll = styled(motion.div)<{color?:string}>`
     font-weight: bold;
 `
 const Text = styled(motion.div)`
-    font-size: 25px;
+    font-size: 21px;
     font-weight: normal;
     color: #000;
-    font-weight: bold;
+    font-family: 'Nanum Gothic Coding', monospace;
+    /* font-weight: bold; */
 `
 const Skill = styled(motion.span)`
     gap: 20px;
@@ -100,7 +101,7 @@ const springVariants = {
         y: 100, 
         rotateY: custom ? 300 : 0
     }),
-    end: (custom?:boolean) => ({
+    end: {
       opacity: 1,
       y: 0,
       rotateY: 0,
@@ -117,8 +118,17 @@ const springVariants = {
         },
         // delay: custom ? custom : 0
       }
-    })
+    }
 };
+const opacityVariants = {
+    start: {opacity: 0},
+    end: {
+        opacity: 1, 
+        transition: {
+            duration: .5, 
+        }
+    }
+}
 const btnVariants = {
     out: {
         background: 'rgb(255, 255, 255)',
@@ -153,7 +163,7 @@ function Detail() {
                     {
                         work?
                         work.skills.map((skill, i) => 
-                            <p key={i}> 
+                            <p key={skill[i]}> 
                                 {skill}&nbsp; { i !== work.skills.length - 1 ? '|' : null }&nbsp;
                             </p>
                         )
@@ -166,8 +176,12 @@ function Detail() {
                 <ButtonWrap  variants={springVariants}>
                     {
                         work?.link&&
-                            work.link.map(link => 
-                                <Button onClick={() => window.open(link.url)} variants={btnVariants} initial='out' whileHover= 'in' custom={work?.color}>{link.type}</Button>
+                            work.link.map((link, i) => 
+                                <Button key={link.type} onClick={() => window.open(link.url)} 
+                                    variants={btnVariants} initial='out' whileHover= 'in' 
+                                    custom={work?.color}>
+                                    {link.type}
+                                </Button>
                             )
                     }
                     
@@ -175,12 +189,12 @@ function Detail() {
             </Cover>
             <div style={{ padding:'60px'}}>
                 {
-                    work?.contents.map(content => 
+                    work?.contents.map((content, i) => 
                         <>
-                            <CardWrap flexColumn={content.flexColumn}>
+                            <CardWrap key={work.projectId + i} flexColumn={content.flexColumn}>
                             {
-                                content.images.map( item => 
-                                    <Card background={item.image} 
+                                content.images.map((item, i) => 
+                                    <Card key={'image' + i} background={item.image} 
                                         size={item.size? item.size : [70, 60]}
                                         variants={springVariants} 
                                         custom={true} 
@@ -193,8 +207,8 @@ function Detail() {
                             </CardWrap>
                             <Content>
                             {
-                                content.content.map( item => 
-                                    <Text variants={springVariants} initial='start' whileInView='end' >
+                                content.content.map((item, i) => 
+                                    <Text key={'content' + i} variants={opacityVariants} initial='start' whileInView='end' >
                                         🐰 {item}
                                     </Text>)
                             }

@@ -1,5 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { motion, useScroll, useViewportScroll } from 'framer-motion';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import imageModule from './util/imageModule';
 import Header from './Components/Header';

@@ -11,10 +11,6 @@ import yKey from '../img/ykey.png'
 import oKey from '../img/okey.png'
 import nKey from '../img/nkey.png'
 import gKey from '../img/gkey.png'
-import cat from '../img/cat.png'
-import cat2 from '../img/cat2.png'
-import cat3 from '../img/cat3.png'
-import cat4 from '../img/cat4.png'
 import notFound from '../img/404.png'
 import backSpace from '../img/backspace.png'
 import backSpaceActive from '../img/backspace_active.png'
@@ -27,10 +23,8 @@ const icons = { homeIcon, menuIcon, git, velog }
 const images = { keyboardIntro, notFound, backSpace, backSpaceActive, intp }
 const flyingKeycaps = [ hKey, aKey, yKey, oKey, nKey, gKey ]
 const imageModule = { cursors, icons, images, flyingKeycaps }
-const cats = { cat, cat2, cat3, cat4 }
 
 export { flyingKeycaps };
-export { cats };
 export { cursors };
 export { icons };
 export { images };
