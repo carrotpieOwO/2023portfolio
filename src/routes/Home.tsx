@@ -250,7 +250,7 @@ function Home(props:{isIntro:boolean, setIsIntro:(intro:boolean)=>void}) {
                     </TitleBox>
                 </Wrapper>
                 <Suspense fallback={<div>Loading...</div>}>
-                    <Spline scene="https://prod.spline.design/LdTuZSJ57Ss1RM5s/scene.splinecode" 
+                    <Spline scene="https://prod.spline.design/r0Iem6wpaNhrBw92/scene.splinecode" 
                       style={{position: 'fixed', top: '0', zIndex: '10'}}
                       onMouseDown={onMouseDown}
                     />

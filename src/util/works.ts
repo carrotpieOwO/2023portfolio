@@ -355,6 +355,134 @@ const works:WorkType[] = [
         color: 'rgb(78, 92, 119)'
     },
     {
+        projectId: 'styleShare',
+        projectNm: 'Style Share',
+        mainImg: '/images/works/styleShare/styleLogin.png',
+        period: '2020-04 ~ 2020-05',
+        skills: ['JAVA Spring boot', 'javascript', 'MySQL'],
+        contents: [
+            {
+                images:[{image: '/images/works/styleShare/style.png', size: [60, 65]}],
+                content: ['프로젝트 구조']
+            },
+            {
+                images:[{image: '/images/works/styleShare/styleDB.png', size: [54, 70]}],
+                content: ['DB구조']
+            },
+            {
+                images:[
+                    {image: '/images/works/styleShare/join.png', size: [70, 30]},
+                    {image: '/images/works/styleShare/styleLogin.png', size: [70, 40]}
+                ],
+                content: [
+                    '회원가입/로그인 기능 구현',
+                    'Spring Security의 BCryptPasswordEncoderBCFI를 사용하여 비밀번호 암호화 처리',
+                    'ID 중복여부 및 유효성 검사하여 @valid 어노테이션 메시지 출력',
+                    'Spring Security로 로그인 구현',
+                ]
+            },
+            {
+                images:[{image: '/images/works/styleShare/profile.png', size: [70, 40]}],
+                content: [
+                    '회원정보 수정기능 구현',
+                    '파일업로드 및 프로필 사진 업데이트/삭제 기능 구현',
+                    '파일크기 및 확장자 검증기능 구현',
+                    '비밀번호 변경 시 PasswordEncoder의 matches함수로 입력한 기존 비밀번호와 DB의 암호화된 비밀번호가 일치하지 않으면 수정불가 처리',
+                    '비밀번호 유효성 검사'
+                ]
+            },
+            {
+                images:[
+                    {image: '/images/works/styleShare/main_all.png', size: [50, 45]},
+                    {image: '/images/works/styleShare/main_search.png', size: [50, 35]}
+                ],
+                content: [
+                    '인기 게시글 조회기능 구현',
+                    '네이버 데이터랩 쇼핑(패션의류)부분의 인기검색어를 크롤링하여 트렌드키워드 지원',
+                    '트렌드키워드 클릭 시 트렌드키워드로 검색기능 구현: 네이버쇼핑, 유저검색, 게시글검색(내용/태그/키워드)',
+                    '무한스크롤 구현',
+                ],
+            },
+            {
+                images:[
+                    {image: '/images/works/styleShare/main_category.png', size: [50, 30]},
+                ],
+                content: [
+                    '프로필의 성별에 다른 카테고리별 게시글 조회기능 구현',
+                    '카테고리별 인기 게시글 조회기능 구현',
+                    '카테고리별로 네이버 데이터랩 쇼핑(패션의류)부분의 인기검색어를 크롤링하여 트렌드키워드 지원',
+                ],
+            },
+            {
+                images:[{image: '/images/works/styleShare/write.png', size: [70, 60]}],
+                content: [
+                    '게시글 작성/수정/삭제기능 구현',
+                    '유효성검사: 파일크기, 확장자, 파일개수제한',
+                    '파일명 중복방지를 위해 UUID를 사용하여 파일명 재지정 후 DB에 저장',
+                    '네이버 쇼핑 API를 사용하여 상품검색 및 리스트 페이징 구현',
+                    '태그 추가 시, #로 구분하여 DB에 개별 저장'
+                ]
+            },
+            {
+                images:[
+                    {image: '/images/works/styleShare/styleDetail.png', size: [70, 60]},
+                ],
+                content: [
+                    '게시글 상세보기 기능 구현',
+                    '좋아요 및 좋아요리스트 조회기능 구현',
+                    '팔로우/언팔로우 기능 구현',
+                    '게시글 마이페이지 보관기능 구현',
+                    '태그검색 구현',
+                    '사러가기버튼 클릭 시 네이버쇼핑 API에서 선택한 아이템의 판매처 링크로 이동'
+                ]
+            },
+            {
+                images:[
+                    {image: '/images/works/styleShare/styleComment.png', size: [70, 60]},
+                ],
+                content: [
+                    '댓글작성 및 삭제기능 구현',
+                    '키워드검색 기능 구현',
+                ]
+            },
+            {
+                images:[{image: '/images/works/nyam/alert.png', size: [70, 65]}],
+                content: ['좋아요, 댓글달기, 팔로우한 기록을 최신순으로 정렬하여 출력하도록 구현']
+            },
+            {
+                images:[
+                    {image: '/images/works/styleShare/styleMyPage.png', size: [40, 30]},
+                    {image: '/images/works/styleShare/styleAlert.png', size: [40, 30]},
+                ],
+                content: [
+                    '유저 프로필정보 조회 및 해당유저의 게시글리스트, 보관함리스트, 팔로워/팔로잉 리스트 조회기능 구현',
+                    '팔로우/언팔로우 기능 구현',
+                    '자신에게 좋아요/댓글/팔로우한 기록 최신순 조회기능 구현'
+                ]
+            },
+            {
+                images:[
+                    {image: '/images/works/styleShare/product_search.png', size: [30, 25]},
+                    {image: '/images/works/styleShare/user_search.png', size: [30, 25]},
+                    {image: '/images/works/styleShare/style_search.png', size: [30, 25]}
+                ],
+                content: [
+                    '정규표현식을 사용하여 검색결과 리스트 조회기능 구현',
+                    '상품검색: 네이버쇼핑 API를 사용하여 검색결과 리스트 반환 및 [더보기]클릭 시 검색결과를 4개씩 더 조회하는 기능 구현',
+                    '유저검색: username / 자기소개에서 검색어에 해당하는 리스트 출력 및 해당유저의 최신 게시글을 4개까지 조회하는 기능 구현',
+                    '게시글검색: 게시글 내용, 태그, 키워드에서 검색어에 해당하는 리스트 조회기능 구현'
+                ],
+            },
+        ],
+        color: 'rgb(134, 151, 136)',
+        link: [
+            {
+                type: 'Git',
+                url: 'https://github.com/carrotpieOwO/styleshare'
+            }
+        ],
+    },
+    {
         projectId: 'nyam',
         projectNm: '냠냠 (인스타 클론)',
         mainImg: '/images/works/nyam/tag.png',
